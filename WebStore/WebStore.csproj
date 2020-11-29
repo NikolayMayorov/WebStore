@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Shared\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
 
 </Project>

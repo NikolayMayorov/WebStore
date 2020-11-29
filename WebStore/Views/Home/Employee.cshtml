@@ -1,0 +1,40 @@
+﻿@model System.Collections.Generic.IEnumerable<WebStore.Models.Employee>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>title</title>
+</head>
+<body>
+<div>
+    <table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.FirstName
+                </td>
+                <td>
+                    @item.SurName
+                </td>
+                <td>
+                @item.Patronymic
+                <td>
+                    @item.Age
+                </td>
+                <td>
+                    <a href="~/Home/EmployeeData/@item.Id"> Details</a>
+                </td>
+            </tr>
+           
+
+        }
+    </table>
+</div>
+</body>
+</html>
