@@ -1,0 +1,26 @@
+﻿@model WebStore.Models.Employee
+
+<div class="container">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Отчество</th>
+                <th>Возраст</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>@Model.FirstName</td>
+                <td>@Model.SurName</td>
+                <td>@Model.Patronymic</td>
+                <td>@Model.Age</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a asp-controller="Employees" asp-action="Index">Back</a>
+</div>
