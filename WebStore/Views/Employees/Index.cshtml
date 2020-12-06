@@ -1,0 +1,48 @@
+﻿@model System.Collections.Generic.IEnumerable<WebStore.Models.Employee>
+
+<div class="container">
+
+    <table class="table table-bordered" id="empl-table">
+        <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Возраст</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.FirstName
+                </td>
+                <td>
+                    @item.SurName
+                </td>
+                <td>
+                    @item.Patronymic
+                </td>
+                    
+                <td>
+                    @item.Age
+                </td>
+                <td>
+                    <a asp-controller="Employees" asp-action="EmployeeData" asp-route-id="@item.Id"> Details</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+@section Styles
+{
+    <style>
+        #empl-table {
+            background: gray;
+        }
+    </style>
+}
