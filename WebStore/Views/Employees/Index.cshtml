@@ -30,19 +30,27 @@
                     @item.Age
                 </td>
                 <td>
-                    <a asp-controller="Employees" asp-action="EmployeeData" asp-route-id="@item.Id"> Details</a>
+                    <a asp-controller="Employees" asp-action="EmployeeData" asp-route-id="@item.Id">Подробнее</a>
+                </td>
+                <td>
+                    <a asp-controller="Employees" asp-action="Edit" asp-route-id="@item.Id">Редактировать</a>
+                </td>
+                <td>
+                    <a asp-controller="Employees" asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
                 </td>
             </tr>
         }
         </tbody>
     </table>
+    
+    <a asp-controller="Employees" asp-action="Create">Добавить нового сотрудника</a>
 </div>
 
 @section Styles
 {
     <style>
         #empl-table {
-            background: gray;
+            background: azure;
         }
     </style>
 }

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using WebStore.Models;
 
 namespace WebStore.Controllers
@@ -25,10 +28,15 @@ namespace WebStore.Controllers
 
         public IActionResult Shop() => View();
 
-        public IActionResult Index()
+        public IActionResult Index() => View();
+
+        public EmptyResult GetEmty() => new EmptyResult();
+
+        public ApplicationException GetExc(string id)
         {
-            return View();
-            // return Content("Home controller");
+            throw new ApplicationException(id);
         }
+
+      
     }
 }
