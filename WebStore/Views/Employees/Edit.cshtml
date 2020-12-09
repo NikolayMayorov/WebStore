@@ -1,0 +1,45 @@
+﻿@model Employee
+
+@{
+    ViewData["Title"] = "Редактирование сотрудника #" + Model.Id;
+}
+
+<div class="container">
+    <h3>Редактирование сотрудника</h3>
+
+    <form asp-controller="Employees" asp-action="Edit" method="post">
+        <div class="row">
+            <div class="col-md-4">
+                
+                <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+                <input asp-for="Id" type="hidden"/>
+                <div class="form-group">
+                    <label asp-for="SurName" class="form-group"></label>
+                    <input asp-for="SurName" class="form-control"/>
+                    <span asp-validation-for="SurName" class="form-group text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FirstName" class="form-group"></label>
+                    <input asp-for="FirstName" class="form-control"/>
+                    <span asp-validation-for="FirstName" class="form-group text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="Patronymic" class="form-group"></label>
+                    <input asp-for="Patronymic" class="form-control"/>
+                    <span asp-validation-for="Patronymic" class="form-group text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Age" class="form-group"></label>
+                    <input asp-for="Age" class="form-control"/>
+                    <span asp-validation-for="Age" class="form-group"></span>
+                </div>
+
+                <button class="btn btn-default" type="submit">Сохранить</button>
+            </div>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,14 @@
+﻿
+@model Employee
+
+@{
+    ViewData["Title"] = "Удаление сотрудника #" + Model.Id;
+}
+
+<div class="container">
+    <form asp-controller="Employees" asp-action="DeleteConfirm" method="post">
+        <input type="hidden" asp-for="Id"/>
+        <button class="btn btn-danger">Удалить</button>
+    </form>
+
+</div>
