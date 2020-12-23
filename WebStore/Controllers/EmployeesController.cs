@@ -34,20 +34,18 @@ namespace WebStore.Controllers
         [HttpPost]
         public IActionResult Edit(Employee employee)
         {
+            if (employee.Age > 100) 
+                ModelState.AddModelError(key: string.Empty, "Слишком стар");
+
             if (!ModelState.IsValid)
-                return View(employee);
+                return View(model: employee);
 
             if (employee.Id == 0)
-            {
-                employeesData.Add(employee);
-
-            }
+                employeesData.Add(emp: employee);
             else
-            {
-                employeesData.Edit(employee.Id, employee);
-            }
+                employeesData.Edit(id: employee.Id, emp: employee);
             employeesData.SaveChanges();
-          
+
             return RedirectToAction("Index");
         }
 
@@ -64,7 +62,7 @@ namespace WebStore.Controllers
             if (emp is null)
                 return NotFound();
 
-            return View(emp);
+            return View(model: emp);
         }
 
         public IActionResult Create()
@@ -77,7 +75,7 @@ namespace WebStore.Controllers
         {
             if (!ModelState.IsValid)
                 return View();
-            employeesData.Add(employee);
+            employeesData.Add(emp: employee);
             return RedirectToAction("Index");
         }
 
@@ -86,18 +84,18 @@ namespace WebStore.Controllers
             if (id <= 0)
                 return BadRequest();
 
-            var emp = employeesData.GetById(id);
+            var emp = employeesData.GetById(id: id);
 
             if (emp is null)
                 return NotFound();
 
-            return View(emp);
+            return View(model: emp);
         }
 
         [HttpPost]
         public IActionResult DeleteConfirm(int id)
         {
-            employeesData.Delete(id);
+            employeesData.Delete(id: id);
             employeesData.SaveChanges();
             return RedirectToAction("Index");
         }
