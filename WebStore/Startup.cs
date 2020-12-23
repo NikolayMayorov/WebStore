@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebStore.Expansion;
 using WebStore.Infastrature.Interfaces;
 using WebStore.Infastrature.Services;
 
@@ -27,15 +28,18 @@ namespace WebStore
             services.AddControllersWithViews();
 
 
-            //services.AddTransient  создаетс€ каждый раз свой экземпл€р
+            //services.AddTransient  создаетс€ каждый раз свой экземпл€р  (этот способ приортнее дл€ многопотока)
             //services.AddScoped - один экземал€ на область видимости
 
-            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
+            //services.AddSingleton<IEmployeesData, InMemoryEmployeesData>(); //создание происходит в момент обращение к IEmployeesData (ленива€ инициализаци€)
+
+            services.RegService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+         
             if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseWelcomePage("/welcome");
