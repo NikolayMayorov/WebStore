@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebStore.Domain.Entities;
+using WebStore.DomainCore.Entities;
 
 namespace WebStore.Infastrature.Interfaces
 {

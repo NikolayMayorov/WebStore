@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebStore.Domain.Entities.Base.Interfaces;
 
-namespace WebStore.Domain.Entities.Base
+namespace WebStore.DomainCore.Entities.Base.Interfaces
 {
     /// <summary>
     /// Базовая сущность
     /// </summary>
-    public abstract class BaseEntity : IBaseEntity
+    public interface IBaseEntity
     {
-      
-        public int Id { get; set; }
+        /// <summary>
+        /// Идентификатор
+        /// </summary>
+        int Id { get; set; }
     }
 }

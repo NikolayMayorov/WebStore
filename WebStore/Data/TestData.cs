@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using WebStore.Domain.Entities;
+using WebStore.DomainCore.Entities;
 using WebStore.Models;
 
 namespace WebStore.Data
