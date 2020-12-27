@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebStore.Domain.Entities.Base.Interfaces;
+using WebStore.DomainCore.Entities.Base.Interfaces;
 
 namespace WebStore.ViewModels
 {

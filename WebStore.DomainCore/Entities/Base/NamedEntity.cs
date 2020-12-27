@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebStore.DomainCore.Entities.Base;
 using WebStore.DomainCore.Entities.Base.Interfaces;
 
-namespace WebStore.ViewModels
+namespace WebStore.DomainCore.Entities.Base
 {
-    public class BrandViewModel : INamedEntity, IOrderedEntity
+    /// <summary>
+    /// Именованая сущность
+    /// </summary>
+    public abstract class NamedEntity : BaseEntity, INamedEntity
     {
-        public int Order { get; set; }
-
-        public int Id { get; set; }
-
         public string Name { get; set; }
     }
 }

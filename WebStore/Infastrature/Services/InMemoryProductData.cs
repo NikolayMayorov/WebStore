@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebStore.Data;
-using WebStore.Domain.Entities;
+using WebStore.DomainCore.Entities;
 using WebStore.Infastrature.Interfaces;
 
 namespace WebStore.Infastrature.Services

@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using WebStore.Domain.Entities;
+using WebStore.DomainCore.Entities;
 using WebStore.Infastrature.Interfaces;
 using WebStore.ViewModels;
 

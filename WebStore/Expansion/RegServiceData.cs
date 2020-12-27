@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using WebStore.Infastrature.Interfaces;
 using WebStore.Infastrature.Services;
+using WebStore.Infastrature.Services.InSQL;
 
 namespace WebStore.Expansion
 {
@@ -14,7 +10,8 @@ namespace WebStore.Expansion
         public static void RegService(this IServiceCollection services)
         {
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
-            services.AddSingleton<IProductData, InMemoryProductData>();
+           // services.AddSingleton<IProductData, InMemoryProductData>();
+           services.AddScoped<IProductData, InSQLProductData>();
         }
     }
 }

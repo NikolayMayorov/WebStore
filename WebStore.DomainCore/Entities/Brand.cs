@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 using WebStore.DomainCore.Entities.Base;
 using WebStore.DomainCore.Entities.Base.Interfaces;
 
-namespace WebStore.ViewModels
+namespace WebStore.DomainCore.Entities
 {
-    public class BrandViewModel : INamedEntity, IOrderedEntity
+    public class Brand : NamedEntity, IOrderedEntity
     {
         public int Order { get; set; }
 
-        public int Id { get; set; }
-
-        public string Name { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
