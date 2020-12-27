@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,8 +8,6 @@ using Microsoft.Extensions.Hosting;
 using WebStore.DAL.Context;
 using WebStore.Data;
 using WebStore.Expansion;
-using WebStore.Infastrature.Interfaces;
-using WebStore.Infastrature.Services;
 
 namespace WebStore
 {

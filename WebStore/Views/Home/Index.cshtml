@@ -1,4 +1,8 @@
-﻿
+﻿@using WebStore.Infastrature.Interfaces
+@using WebStore.ViewModels
+@model WebStore.ViewModels.CatalogViewModel
+
+
 @await Html.PartialAsync("Partial/_Slider")
 <section>
     <div class="container">
@@ -8,7 +12,23 @@
             </div>
 
             <div class="col-sm-9 padding-right">
-                @*@await Html.PartialAsync("Partial/_FeaturesItems")*@
+                
+                @inject IProductData catalog
+                @{
+                    var products = catalog.GetProducts().Select(p => new ProductViewModel()
+                    {
+                        Order = p.Order,
+                        Name = p.Name,
+                        SectionId = p.SectionId,
+                        BrandId = p.BrandId,
+                        Price = p.Price,
+                        ImageUrl = p.ImageUrl,
+                        Id = p.Id
+                        
+                    });
+                }
+
+                @await Html.PartialAsync("_FeaturesItems", @products)
 
                 @await Html.PartialAsync("Partial/_CategoryTab")
 

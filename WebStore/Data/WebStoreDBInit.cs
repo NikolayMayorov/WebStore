@@ -20,16 +20,17 @@ namespace WebStore.Data
 
         private async Task InitAsync()
         {
-            var db = _webStoreDb.Database;
+            await _webStoreDb.Database.EnsureCreatedAsync();
 
-            await db.EnsureCreatedAsync();
+            if (await _webStoreDb.Products.AnyAsync().ConfigureAwait(false))
+                return;
 
-            await db.MigrateAsync().ConfigureAwait(false);
-
+            await _webStoreDb.Database.MigrateAsync().ConfigureAwait(false);
 
             if (await _webStoreDb.Sections.CountAsync().ConfigureAwait(false) == 0)
             {
-                await using var transaction = await db.BeginTransactionAsync().ConfigureAwait(false);
+                await using var transaction = await _webStoreDb.Database.BeginTransactionAsync().ConfigureAwait(false);
+
                 await _webStoreDb.Sections.AddRangeAsync(entities: TestData.Sections).ConfigureAwait(false);
 
                 await _webStoreDb.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Sections] ON");
@@ -43,7 +44,7 @@ namespace WebStore.Data
 
             if (await _webStoreDb.Brands.CountAsync().ConfigureAwait(false) == 0)
             {
-                await using var transaction = await db.BeginTransactionAsync().ConfigureAwait(false);
+                await using var transaction = await _webStoreDb.Database.BeginTransactionAsync().ConfigureAwait(false);
                 await _webStoreDb.Brands.AddRangeAsync(entities: TestData.Brands).ConfigureAwait(false);
 
                 await _webStoreDb.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Brands] ON");
@@ -57,7 +58,7 @@ namespace WebStore.Data
 
             if (await _webStoreDb.Products.CountAsync().ConfigureAwait(false) == 0)
             {
-                await using var transaction = await db.BeginTransactionAsync().ConfigureAwait(false);
+                await using var transaction = await _webStoreDb.Database.BeginTransactionAsync().ConfigureAwait(false);
                 await _webStoreDb.Products.AddRangeAsync(entities: TestData.Products).ConfigureAwait(false);
 
                 await _webStoreDb.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Products] ON");
