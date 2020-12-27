@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebStore.DomainCore.Entities;
 using WebStore.Infastrature.Interfaces;
-using WebStore.Models;
+
 
 namespace WebStore.Controllers
 {
@@ -76,6 +77,7 @@ namespace WebStore.Controllers
             if (!ModelState.IsValid)
                 return View();
             employeesData.Add(emp: employee);
+            employeesData.SaveChanges();
             return RedirectToAction("Index");
         }
 

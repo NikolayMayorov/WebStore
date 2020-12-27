@@ -72,7 +72,7 @@ namespace WebStore.Controllers
             //return View(model: catalogVM);
             return View();
         }
-        ние
+   
         public EmptyResult GetEmty()
         {
             return new EmptyResult();

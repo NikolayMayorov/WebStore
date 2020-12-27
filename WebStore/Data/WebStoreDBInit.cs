@@ -69,6 +69,19 @@ namespace WebStore.Data
 
                 await transaction.CommitAsync().ConfigureAwait(false);
             }
+
+            await using (var transaction = await _webStoreDb.Database.BeginTransactionAsync().ConfigureAwait(false))
+            {
+                await _webStoreDb.Employee.AddRangeAsync(TestData.Employees).ConfigureAwait(false);
+
+                await _webStoreDb.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Employee] ON");
+
+                await _webStoreDb.SaveChangesAsync().ConfigureAwait(false);
+
+                await _webStoreDb.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Employee] OFF");
+
+                await transaction.CommitAsync().ConfigureAwait(false);
+            }
         }
     }
 }

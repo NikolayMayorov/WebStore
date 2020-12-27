@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebStore.Data;
+using WebStore.DomainCore.Entities;
 using WebStore.Infastrature.Interfaces;
-using WebStore.Models;
 
 namespace WebStore.Infastrature.Services
 {
@@ -28,7 +28,7 @@ namespace WebStore.Infastrature.Services
             if (emp is null)
                 throw new ArgumentNullException(nameof(emp));
             emp.Id = TestData.Employees.Max(e => e.Id) + 1;
-            TestData.Employees.Add(emp);
+      //      TestData.Employees.Add(emp);
         }
 
         public void Edit(int id, Employee emp)
@@ -49,8 +49,8 @@ namespace WebStore.Infastrature.Services
             var db_emp = GetById(id);
             if (db_emp is null)
                 return false;
-            var result = TestData.Employees.Remove(db_emp);
-            return result;
+       //     var result = TestData.Employees.Remove(db_emp);
+            return true;
         }
 
         public void SaveChanges()
