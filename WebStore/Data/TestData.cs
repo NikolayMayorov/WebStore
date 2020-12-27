@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using WebStore.DomainCore.Entities;
-using WebStore.Models;
+
 
 namespace WebStore.Data
 {
     public class TestData
     {
-        public static List<Employee> Employees { get; } = new List<Employee>
+        public static IEnumerable<Employee> Employees { get; } = new []
         {
             new Employee
             {

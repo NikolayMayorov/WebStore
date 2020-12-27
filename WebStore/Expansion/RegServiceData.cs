@@ -9,9 +9,12 @@ namespace WebStore.Expansion
     {
         public static void RegService(this IServiceCollection services)
         {
-            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
-           // services.AddSingleton<IProductData, InMemoryProductData>();
-           services.AddScoped<IProductData, InSQLProductData>();
+           // services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
+            services.AddScoped<IEmployeesData, InSQLEmployeeData>();
+
+
+            // services.AddSingleton<IProductData, InMemoryProductData>();
+            services.AddScoped<IProductData, InSQLProductData>();
         }
     }
 }
