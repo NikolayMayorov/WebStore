@@ -8,13 +8,7 @@ namespace WebStore.Controllers
 {
     public class HomeController : Controller //ControllerBase  для веб апи
     {
-        private readonly IProductData _productData;
-
-        public HomeController(IProductData productData)
-        {
-            _productData = productData;
-        }
-
+        
         public IActionResult Error404()
         {
             return View();
@@ -45,11 +39,7 @@ namespace WebStore.Controllers
             return View();
         }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
-
+       
 
         public IActionResult Index()
         {

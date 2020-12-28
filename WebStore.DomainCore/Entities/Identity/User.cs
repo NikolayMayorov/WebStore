@@ -9,6 +9,8 @@ namespace WebStore.DomainCore.Entities.Identity
 {
     public class User : IdentityUser
     {
-        //public string const Admin
+        public const string Administrator = "Admin";
+
+        public const string DefaultPassword = "123456789";
     }
 }
