@@ -94,25 +94,37 @@
                     </div>
                 </div>
                 <div class="col-sm-8">
-                    <div class="shop-menu pull-right">
+                    
+                     <vc:user-info></vc:user-info>
+
+                    @*<div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li>
-                                <a href="~/#"><i class="fa fa-user"></i> Account</a>
+                                <a href="~/#"><i class="fa fa-user"></i> Профиль</a>
                             </li>
                             <li>
-                                <a href="~/#"><i class="fa fa-star"></i> Wishlist</a>
+                                <a href="~/#"><i class="fa fa-star"></i> Списко желаний</a>
                             </li>
                             <li>
-                                <a href="~/checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a>
+                                <a href="~/checkout.html"><i class="fa fa-crosshairs"></i> Выход</a>
                             </li>
                             <li>
-                                <a href="~/cart.html"><i class="fa fa-shopping-cart"></i> Cart</a>
+                                <a href="~/cart.html"><i class="fa fa-shopping-cart"></i> Корзина</a>
                             </li>
                             <li>
-                                <a href="~/login.html"><i class="fa fa-lock"></i> Login</a>
+                                <a asp-controller="Account" asp-action="Login">
+                                    <i class="fa fa-lock"></i>
+                                    Вход
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Account" asp-action="Register">
+                                    <i class="fa fa-apple"></i>
+                                    Регистрация
+                                </a>
                             </li>
                         </ul>
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>

@@ -25,7 +25,7 @@ namespace WebStore.Data
             if (await _webStoreDb.Products.AnyAsync().ConfigureAwait(false))
                 return;
 
-            await _webStoreDb.Database.MigrateAsync().ConfigureAwait(false);
+       //     await _webStoreDb.Database.MigrateAsync().ConfigureAwait(false);
 
             if (await _webStoreDb.Sections.CountAsync().ConfigureAwait(false) == 0)
             {

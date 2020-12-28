@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebStore.DAL.Context;
 using WebStore.Data;
+using WebStore.DomainCore.Entities.Identity;
 using WebStore.Expansion;
 
 namespace WebStore
@@ -28,7 +30,43 @@ namespace WebStore
             //  services.AddMvc(); // core 2.0
             services.AddControllersWithViews();
 
-            services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<WebStoreDB>(opt =>
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<User, Role>().AddEntityFrameworkStores<WebStoreDB>().AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(opt =>
+            {
+                opt.Password.RequiredLength = 3;
+
+                opt.Password.RequireNonAlphanumeric = false;
+
+                opt.Password.RequireUppercase = false;
+
+                opt.Password.RequireLowercase = false;
+
+                opt.User.RequireUniqueEmail = false;
+            });
+
+
+            //services.Configure<CookieOptions>(opt =>
+            //{
+            //    opt.HttpOnly = true;
+            //});
+
+            services.ConfigureApplicationCookie(opt =>
+            {
+                opt.LoginPath = "/Account/Login";
+                opt.LogoutPath = "/Account/Logout";
+                opt.AccessDeniedPath = "/Account/AccessDenied";
+
+                opt.Cookie.HttpOnly = true;
+
+                opt.SlidingExpiration = true;
+            });
+
+
+            // services.AddIdentityCore
 
             //services.AddTransient  создаетс€ каждый раз свой экземпл€р  (этот способ приортнее дл€ многопотока)
             //services.AddScoped - один экземал€ на область видимости
@@ -52,6 +90,11 @@ namespace WebStore
             app.UseStaticFiles();
             app.UseDefaultFiles(); //!!!!!!
 
+            app.UseCookiePolicy();
+
+            app.UseAuthentication();
+
+
             app.UseRouting();
 
 
@@ -67,11 +110,7 @@ namespace WebStore
                 endpoints.MapControllerRoute(
                     "default",
                     "{controller=Home}/{action=Index}/{id?}");
-
-           
             });
-
-           
         }
     }
 }
