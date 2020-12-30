@@ -1,0 +1,33 @@
+﻿<table class="table table-bordered" id="empl-table">
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Отчество</th>
+        <th>Возраст</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.FirstName
+            </td>
+            <td>
+                @item.SurName
+            </td>
+            <td>
+                @item.Patronymic
+            </td>
+                    
+            <td>
+                @item.Age
+            </td>
+            <td>
+                <a asp-controller="Employees" asp-action="EmployeeData" asp-route-id="@item.Id">Подробнее</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

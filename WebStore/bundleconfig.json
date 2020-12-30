@@ -1,0 +1,29 @@
+[
+  {
+    "outputFileName": "wwwroot/css/bundle.css",
+    "inputFiles": [
+      "wwwroot/css/main.css",
+      "wwwroot/css/price-range.css",
+      "wwwroot/css/animate.css",
+      "wwwroot/css/responsive.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "gzip": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/bundle.js",
+    "inputFiles": [
+      "wwwroot/js/main.js",
+      "wwwroot/js/price-range.js",
+      "wwwroot/js/gmaps.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "gzip": true
+    }
+  }
+]

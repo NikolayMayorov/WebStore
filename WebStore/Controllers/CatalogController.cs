@@ -15,10 +15,24 @@ namespace WebStore.Controllers
             _productData = productData;
         }
 
-        public IActionResult ProductDetails()
+        public IActionResult ProductDetails(int id)
         {
-   
-            return View();
+            var product = _productData.GetProductById(id);
+            if (product is null)
+                return NotFound();
+
+            var productVM = new ProductViewModel()
+            {
+                Name = product.Name,
+                Order = product.Order,
+                ImageUrl = product.ImageUrl,
+                Id = product.Id,
+                BrandId = product.BrandId,
+                SectionId = product.SectionId,
+                Price = product.Price
+                
+            };
+            return View(productVM);
         }
 
         public IActionResult Shop(int? brandId, int? sectionId)

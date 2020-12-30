@@ -1,16 +1,22 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
+using WebStore.DomainCore.Entities.Identity;
 
 namespace WebStore.Data
 {
     public class WebStoreDBInit
     {
         private readonly WebStoreDB _webStoreDb;
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
 
-        public WebStoreDBInit(WebStoreDB webStoreDB)
+        public WebStoreDBInit(WebStoreDB webStoreDB, UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             _webStoreDb = webStoreDB;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public void Init()
@@ -25,7 +31,7 @@ namespace WebStore.Data
             if (await _webStoreDb.Products.AnyAsync().ConfigureAwait(false))
                 return;
 
-       //     await _webStoreDb.Database.MigrateAsync().ConfigureAwait(false);
+            //await _webStoreDb.Database.MigrateAsync().ConfigureAwait(false);
 
             if (await _webStoreDb.Sections.CountAsync().ConfigureAwait(false) == 0)
             {
@@ -81,6 +87,30 @@ namespace WebStore.Data
                 await _webStoreDb.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Employee] OFF");
 
                 await transaction.CommitAsync().ConfigureAwait(false);
+            }
+
+
+            if (!await _roleManager.RoleExistsAsync(Role.Administrator))
+            {
+                await _roleManager.CreateAsync(new Role(){Name = Role.Administrator}).ConfigureAwait(false);
+            }
+
+            if (!await _roleManager.RoleExistsAsync(Role.User))
+            {
+                await _roleManager.CreateAsync(new Role() { Name = Role.User }).ConfigureAwait(false);
+            }
+
+            if (await _userManager.FindByNameAsync(User.DefaultPassword) is null)
+            {
+                var user = new User()
+                {
+                    UserName = User.Administrator
+                };
+
+                var resultCreateUser = await _userManager.CreateAsync(user, User.DefaultPassword).ConfigureAwait(false);
+
+                if (resultCreateUser.Succeeded)
+                    await _userManager.AddToRoleAsync(user, Role.Administrator);
             }
         }
     }
