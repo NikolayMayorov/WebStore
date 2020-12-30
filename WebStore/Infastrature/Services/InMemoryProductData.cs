@@ -37,5 +37,10 @@ namespace WebStore.Infastrature.Services
 
             return result;
         }
+        
+        public Product GetProductById(int id)
+        {
+            return null;
+        }
     }
 }

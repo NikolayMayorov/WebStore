@@ -10,8 +10,8 @@ using WebStore.DAL.Context;
 namespace WebStore.DAL.Migrations
 {
     [DbContext(typeof(WebStoreDB))]
-    [Migration("20201228193040_users_role")]
-    partial class users_role
+    [Migration("20201229115337_users_roles")]
+    partial class users_roles
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

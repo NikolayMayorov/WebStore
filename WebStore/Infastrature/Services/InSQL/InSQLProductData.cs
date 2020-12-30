@@ -40,7 +40,20 @@ namespace WebStore.Infastrature.Services.InSQL
                 query = query.Where(product => product.SectionId == filter.SectionId);
             }
 
+            if (filter?.Ids?.Count > 0)
+            {
+                query = query.Where(product => filter.Ids.Contains(product.Id));
+            }
+
             return query.AsEnumerable();
+        }
+
+        public Product GetProductById(int id)
+        {
+            //  var product = _webStoreDb.Products.FirstOrDefault(p => p.Id == id);
+            var product = _webStoreDb.Products.Include(p => p.Brand).Include(p => p.Section)
+                .FirstOrDefault(p => p.Id == id);
+            return product;
         }
     }
 }

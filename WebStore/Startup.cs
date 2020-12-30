@@ -10,6 +10,8 @@ using WebStore.DAL.Context;
 using WebStore.Data;
 using WebStore.DomainCore.Entities.Identity;
 using WebStore.Expansion;
+using WebStore.Infastrature.Interfaces;
+using WebStore.Infastrature.Services.InCookie;
 
 namespace WebStore
 {
@@ -56,6 +58,7 @@ namespace WebStore
 
             services.ConfigureApplicationCookie(opt =>
             {
+             
                 opt.LoginPath = "/Account/Login";
                 opt.LogoutPath = "/Account/Logout";
                 opt.AccessDeniedPath = "/Account/AccessDenied";
@@ -74,8 +77,9 @@ namespace WebStore
 
 
             services.AddTransient<WebStoreDBInit>();
-
+           
             services.RegService();
+            services.AddTransient<ICartService, InCookieCartService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,11 +96,11 @@ namespace WebStore
 
             app.UseCookiePolicy();
 
-            app.UseAuthentication();
-
+          
 
             app.UseRouting();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

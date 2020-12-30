@@ -95,6 +95,11 @@ namespace WebStore.Data
                 await _roleManager.CreateAsync(new Role(){Name = Role.Administrator}).ConfigureAwait(false);
             }
 
+            if (!await _roleManager.RoleExistsAsync(Role.User))
+            {
+                await _roleManager.CreateAsync(new Role() { Name = Role.User }).ConfigureAwait(false);
+            }
+
             if (await _userManager.FindByNameAsync(User.DefaultPassword) is null)
             {
                 var user = new User()

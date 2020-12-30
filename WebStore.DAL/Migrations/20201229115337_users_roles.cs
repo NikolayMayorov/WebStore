@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebStore.DAL.Migrations
 {
-    public partial class users_role : Migration
+    public partial class users_roles : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

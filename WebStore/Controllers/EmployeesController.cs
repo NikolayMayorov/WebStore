@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebStore.DomainCore.Entities;
+using WebStore.DomainCore.Entities.Identity;
 using WebStore.Infastrature.Interfaces;
 
 
 namespace WebStore.Controllers
 {
     // [Route("users")]
+    [Authorize]
     public class EmployeesController : Controller
     {
         private readonly IEmployeesData employeesData;
@@ -32,7 +35,8 @@ namespace WebStore.Controllers
             return View(model: emp);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Roles = Role.Administrator)]
         public IActionResult Edit(Employee employee)
         {
             if (employee.Age > 100) 
@@ -50,6 +54,7 @@ namespace WebStore.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = Role.Administrator)]
         public IActionResult Edit(int? id)
         {
             if (id is null)
@@ -71,7 +76,8 @@ namespace WebStore.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Roles = Role.Administrator)]
         public IActionResult Create(Employee employee)
         {
             if (!ModelState.IsValid)
@@ -81,6 +87,7 @@ namespace WebStore.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = Role.Administrator)]
         public IActionResult Delete(int id)
         {
             if (id <= 0)
@@ -94,12 +101,16 @@ namespace WebStore.Controllers
             return View(model: emp);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Roles = Role.Administrator)]
         public IActionResult DeleteConfirm(int id)
         {
             employeesData.Delete(id: id);
             employeesData.SaveChanges();
             return RedirectToAction("Index");
         }
+     
+       
+        
     }
 }
