@@ -26,6 +26,8 @@ namespace WebStore.Infastrature.Services.InCookie
             var user = httpContextAccessor.HttpContext.User.Identity;
 
             _cartNameCookie = $"CartName[{user?.Name}]";
+
+            
         }
 
         private Cart Cart
@@ -115,6 +117,16 @@ namespace WebStore.Infastrature.Services.InCookie
             
             foreach (var product in products)
             {
+                int count;
+                if (Cart.Items.FirstOrDefault(i => i.ProductId == product.Id) is null)
+                {
+                    count = 0;
+                }
+                else
+                {
+                    count = Cart.Items.First(i => i.ProductId == product.Id).Quantity;
+                }
+
                 cartViewModel.Items.Add(new ProductViewModel()
                 {
                     Name = product.Name,
@@ -124,8 +136,8 @@ namespace WebStore.Infastrature.Services.InCookie
                     Price = product.Price,
                     Id = product.Id,
                     ImageUrl = product.ImageUrl
-                }, Cart.Items.First(i => i.ProductId == product.Id).Quantity);
-     
+                }, count);//Cart.Items.First(i => i.ProductId == product.Id).Quantity);
+
             }
             return cartViewModel;
         }
