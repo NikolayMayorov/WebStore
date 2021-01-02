@@ -42,5 +42,21 @@ namespace WebStore.Infastrature.Services
         {
             return null;
         }
+
+        public void Edit(Product product)
+        {
+        }
+
+        public void Add(Product product)
+        {
+        }
+
+        public void Delete(int id)
+        {
+        }
+
+        public void SaveChanges()
+        {
+        }
     }
 }

@@ -58,7 +58,6 @@ namespace WebStore
 
             services.ConfigureApplicationCookie(opt =>
             {
-             
                 opt.LoginPath = "/Account/Login";
                 opt.LogoutPath = "/Account/Logout";
                 opt.AccessDeniedPath = "/Account/AccessDenied";
@@ -77,7 +76,7 @@ namespace WebStore
 
 
             services.AddTransient<WebStoreDBInit>();
-           
+
             services.RegService();
             services.AddTransient<ICartService, InCookieCartService>();
         }
@@ -96,7 +95,6 @@ namespace WebStore
 
             app.UseCookiePolicy();
 
-          
 
             app.UseRouting();
             app.UseAuthentication();
@@ -110,11 +108,26 @@ namespace WebStore
                         await context.Response.WriteAsync(text: Configuration.GetSection("Gretigns").Value);
                     });
 
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
 
                 endpoints.MapControllerRoute(
                     "default",
                     "{controller=Home}/{action=Index}/{id?}");
+
+
+
+                //endpoints.MapAreaControllerRoute(
+                //    "areas",
+                //    "Admin",
+                //    "Admin/{controller=Home}/{action=Index}/{id?}");
+
+
             });
+           
         }
     }
 }

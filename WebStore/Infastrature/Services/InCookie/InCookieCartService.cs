@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using WebStore.DomainCore.Entities;
+using WebStore.Expansion;
 using WebStore.Infastrature.Interfaces;
 using WebStore.Models;
 using WebStore.ViewModels;
@@ -26,8 +27,6 @@ namespace WebStore.Infastrature.Services.InCookie
             var user = httpContextAccessor.HttpContext.User.Identity;
 
             _cartNameCookie = $"CartName[{user?.Name}]";
-
-            
         }
 
         private Cart Cart
@@ -110,35 +109,34 @@ namespace WebStore.Infastrature.Services.InCookie
             var products = _productData.GetProducts(new ProductFilter
             {
                 Ids = Cart.Items.Select(i => i.ProductId).ToList()
-            });
+            }).ToList();
+
+            var productsVm = products.Select(p => p.ToView()).ToDictionary(p => p.Id, p => p);
+
+
 
             var cartViewModel = new CartViewModel();
-            cartViewModel.Items = new Dictionary<ProductViewModel, int>();
-            
+            // cartViewModel.Items = new Dictionary<ProductViewModel, int>();
+
+
+
+            cartViewModel.Items = Cart.Items.Where(item => productsVm.ContainsKey(item.ProductId)).ToDictionary(item => productsVm[item.ProductId], c => c.Quantity);
+   
+
+
+            /*
             foreach (var product in products)
             {
                 int count;
                 if (Cart.Items.FirstOrDefault(i => i.ProductId == product.Id) is null)
-                {
                     count = 0;
-                }
                 else
-                {
                     count = Cart.Items.First(i => i.ProductId == product.Id).Quantity;
-                }
 
-                cartViewModel.Items.Add(new ProductViewModel()
-                {
-                    Name = product.Name,
-                    Order = product.Order,
-                    SectionId = product.SectionId,
-                    BrandId = product.BrandId,
-                    Price = product.Price,
-                    Id = product.Id,
-                    ImageUrl = product.ImageUrl
-                }, count);//Cart.Items.First(i => i.ProductId == product.Id).Quantity);
-
+                cartViewModel.Items.Add(product.ToView(), count);
             }
+            */
+
             return cartViewModel;
         }
     }

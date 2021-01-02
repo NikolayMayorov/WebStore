@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
 using WebStore.DomainCore.Entities;
 using WebStore.Infastrature.Interfaces;
+using WebStore.ViewModels;
 
 namespace WebStore.Infastrature.Services.InSQL
 {
@@ -40,7 +41,8 @@ namespace WebStore.Infastrature.Services.InSQL
                 query = query.Where(product => product.SectionId == filter.SectionId);
             }
 
-            if (filter?.Ids?.Count > 0)
+            // if (filter?.Ids?.Count > 0)
+            if (filter?.Ids != null)
             {
                 query = query.Where(product => filter.Ids.Contains(product.Id));
             }
@@ -54,6 +56,32 @@ namespace WebStore.Infastrature.Services.InSQL
             var product = _webStoreDb.Products.Include(p => p.Brand).Include(p => p.Section)
                 .FirstOrDefault(p => p.Id == id);
             return product;
+        }
+
+        public void Edit(Product product)
+        {
+            if (_webStoreDb.Products.FirstOrDefault(p => p.Id == product.Id) is null)
+                return;
+
+            var _product = _webStoreDb.Products.First(p => p.Id == product.Id);
+
+            _product.Price = product.Price;
+            _product.Name = product.Name;
+
+            _webStoreDb.SaveChanges();
+        }
+
+        public void Add(Product product)
+        {
+        }
+
+        public void Delete(int id)
+        {
+        }
+
+        public void SaveChanges()
+        {
+            _webStoreDb.SaveChanges();
         }
     }
 }
