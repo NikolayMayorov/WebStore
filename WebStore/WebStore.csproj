@@ -16,6 +16,8 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Moderator\Data\" />
+    <Folder Include="Areas\Moderator\Models\" />
     <Folder Include="Views\Catalog\Partial\" />
     <Folder Include="wwwroot\admin\" />
   </ItemGroup>

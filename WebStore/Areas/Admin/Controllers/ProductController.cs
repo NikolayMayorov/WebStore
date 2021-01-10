@@ -26,6 +26,7 @@ namespace WebStore.Areas.Admin.Controllers
     
         public IActionResult Index()
         {
+            ViewBag.Brands = _productData.GetBrands();
             return View(_productData.GetProducts());
         }
 
@@ -54,13 +55,14 @@ namespace WebStore.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Edit(Product model)
+        public IActionResult Edit(Product product)
         {
-            var product = _productData.GetProductById(model.Id);
-            if (product == null)
+            if (_productData.GetProductById(product.Id) == null)
                 return NotFound();
-            product.Name = model.Name;
-            product.Price = model.Price;
+   
+            _productData.Edit(product);
+
+
             _productData.SaveChanges();
             return RedirectToAction("Index");
         }

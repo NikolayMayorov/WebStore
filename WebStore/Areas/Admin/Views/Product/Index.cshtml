@@ -1,4 +1,6 @@
-﻿@model IEnumerable<WebStore.DomainCore.Entities.Product>
+﻿@using WebStore.DomainCore.Entities
+@using WebStore.Infastrature.Interfaces
+@model IEnumerable<WebStore.DomainCore.Entities.Product>
 
 
 <h2>Product</h2>
@@ -11,7 +13,7 @@
         <thead>
         <tr>
             <th>@Html.DisplayNameFor(product => product.Name)</th>
-            @*<th>@Html.DisplayNameFor(product => product.Brand)</th>*@
+            <th>@Html.DisplayNameFor(product => product.Brand)</th>
             <th>@Html.DisplayNameFor(product => product.ImageUrl)</th>
             <th>@Html.DisplayNameFor(product => product.Price)</th>
             <th></th>
@@ -20,11 +22,18 @@
         </thead>
 
         <tbody>
+        
+      
+    
+
         @foreach (var product in Model)
         {
             <tr>
                 <th>@product.Name</th>
-                @*<th>@product.Brand</th>*@
+                
+
+                <th>@product.Brand.Name</th>
+              
 
                 <th>
                     <img src="~/images/shop/@product.ImageUrl" width="50" alt="@product.Name"/>

@@ -47,7 +47,7 @@ namespace WebStore.Infastrature.Services.InSQL
                 query = query.Where(product => filter.Ids.Contains(product.Id));
             }
 
-            return query.AsEnumerable();
+            return query.Include(b => b.Brand).Include(s => s.Section).AsEnumerable();
         }
 
         public Product GetProductById(int id)
@@ -58,17 +58,23 @@ namespace WebStore.Infastrature.Services.InSQL
             return product;
         }
 
-        public void Edit(Product product)
+        public void Edit(Product model)
         {
-            if (_webStoreDb.Products.FirstOrDefault(p => p.Id == product.Id) is null)
+            if (_webStoreDb.Products.FirstOrDefault(p => p.Id == model.Id) is null)
                 return;
 
-            var _product = _webStoreDb.Products.First(p => p.Id == product.Id);
+            var product = _webStoreDb.Products.First(p => p.Id == model.Id);
 
-            _product.Price = product.Price;
-            _product.Name = product.Name;
 
-            _webStoreDb.SaveChanges();
+            product.Price = model.Price;
+            product.Name = model.Name;
+            //product.Brand = model.Brand;
+            product.BrandId = model.BrandId;
+            //product.ImageUrl = model.ImageUrl;
+            //product.Section = model.Section;
+            //product.SectionId = model.SectionId;
+
+
         }
 
         public void Add(Product product)

@@ -12,6 +12,7 @@ using WebStore.DomainCore.Entities.Identity;
 using WebStore.Expansion;
 using WebStore.Infastrature.Interfaces;
 using WebStore.Infastrature.Services.InCookie;
+using WebStore.Infastrature.Services.InSQL;
 
 namespace WebStore
 {
@@ -77,14 +78,23 @@ namespace WebStore
 
             services.AddTransient<WebStoreDBInit>();
 
+           
+
             services.RegService();
             services.AddTransient<ICartService, InCookieCartService>();
+
+            services.AddScoped<IOrderService, InSqlOrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInit webStoreDbInit)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInit webStoreDbInit, IProductData productData)
         {
             webStoreDbInit.Init();
+
+
+            var product = productData.GetProductById(1);
+            int brandId = product?.BrandId ?? 0;
+
 
             if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
@@ -108,11 +118,22 @@ namespace WebStore
                         await context.Response.WriteAsync(text: Configuration.GetSection("Gretigns").Value);
                     });
 
-                endpoints.MapControllerRoute(
-                    name: "areas",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
+                //endpoints.MapControllerRoute(
+                //    name: "areas",
+                //    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                //);
 
+
+                endpoints.MapAreaControllerRoute(
+                    "areas",
+                    "Admin",
+                    "Admin/{controller=Home}/{action=Index}/{id?}");
+
+
+                endpoints.MapAreaControllerRoute(
+                    "areas",
+                    "Moderator",
+                    "Moderator/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     "default",
@@ -120,11 +141,7 @@ namespace WebStore
 
 
 
-                //endpoints.MapAreaControllerRoute(
-                //    "areas",
-                //    "Admin",
-                //    "Admin/{controller=Home}/{action=Index}/{id?}");
-
+              
 
             });
            

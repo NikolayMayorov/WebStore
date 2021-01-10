@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using WebStore.DomainCore.Entities.Identity;
 
-namespace WebStore.Areas.Admin.Controllers
+namespace WebStore.Areas.Moderator.Controllers
 {
-    [Area("Admin")]
+    [Area("Moderator")]
     [Authorize(Roles = Role.Administrator)]
     public class HomeController : Controller
     {
-   
         public IActionResult Index()
         {
             return View();
