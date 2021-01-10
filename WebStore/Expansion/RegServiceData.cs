@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using WebStore.Infastrature.Interfaces;
-using WebStore.Infastrature.Services;
 using WebStore.Infastrature.Services.InSQL;
 
 namespace WebStore.Expansion
@@ -16,5 +15,7 @@ namespace WebStore.Expansion
             // services.AddSingleton<IProductData, InMemoryProductData>();
             services.AddScoped<IProductData, InSQLProductData>();
         }
+
+
     }
 }

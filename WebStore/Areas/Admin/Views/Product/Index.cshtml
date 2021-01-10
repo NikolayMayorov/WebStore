@@ -1,0 +1,59 @@
+﻿@using WebStore.DomainCore.Entities
+@using WebStore.Infastrature.Interfaces
+@model IEnumerable<WebStore.DomainCore.Entities.Product>
+
+
+<h2>Product</h2>
+
+
+<div class="container">
+    <a class="btn-default">Добавить товар</a>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(product => product.Name)</th>
+            <th>@Html.DisplayNameFor(product => product.Brand)</th>
+            <th>@Html.DisplayNameFor(product => product.ImageUrl)</th>
+            <th>@Html.DisplayNameFor(product => product.Price)</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+      
+    
+
+        @foreach (var product in Model)
+        {
+            <tr>
+                <th>@product.Name</th>
+                
+
+                <th>@product.Brand.Name</th>
+              
+
+                <th>
+                    <img src="~/images/shop/@product.ImageUrl" width="50" alt="@product.Name"/>
+                </th>
+
+                <th>@product.Price</th>
+                <th>
+                    <a title="Редактировать" class="text-info" asp-controller="Product" asp-action="Edit" asp-area="Admin" asp-route-id="@product.Id">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                </th>
+                <th>
+                    <a title="Удалить" class="text-danger">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </a>
+                </th>
+            </tr>
+        }
+
+
+        </tbody>
+    </table>
+</div>

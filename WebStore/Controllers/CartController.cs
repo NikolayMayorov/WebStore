@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebStore.Infastrature.Interfaces;
+using WebStore.ViewModels;
 
 namespace WebStore.Controllers
 {
@@ -18,7 +19,11 @@ namespace WebStore.Controllers
 
         public IActionResult Cart()
         {
-            return View(_cartService.TransformFromCart());
+            return View(new OrderDetailViewModel
+            {
+                CartViewModel = _cartService.TransformFromCart(),
+                OrderViewModel = new OrderViewModel()
+            });
         }
 
         public IActionResult AddToCart(int id)
@@ -31,6 +36,28 @@ namespace WebStore.Controllers
         {
             _cartService.DecrementFromCart(id);
             return RedirectToAction(nameof(Cart));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CheckOut(OrderViewModel orderViewModel, [FromServices] IOrderService orderService)
+        {
+            if (!ModelState.IsValid)
+            {
+                // !!!!!!
+            }
+
+            var order = await orderService.CreateOrder(User.Identity.Name, _cartService.TransformFromCart(), orderViewModel);
+
+            _cartService.RemoveAll();
+
+            return RedirectToAction(nameof(OrderConfmird), order.Id);
+        }
+
+
+        public IActionResult OrderConfmird(int id)
+        {
+            ViewBag.id = id;
+            return View();
         }
     }
 }

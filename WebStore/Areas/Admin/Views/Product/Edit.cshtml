@@ -1,0 +1,64 @@
+﻿@using Microsoft.CodeAnalysis.CSharp.Syntax
+@using WebStore.DomainCore.Entities
+@using WebStore.Infastrature.Interfaces
+@model WebStore.DomainCore.Entities.Product
+
+<div class="container">
+
+    <form asp-controller="Product" asp-action="Edit" method="post">
+
+        <div class="alert-danger" asp-validation-summary="ModelOnly"></div>
+
+        <input asp-for="Id" type="hidden"/>
+        <input asp-for="ImageUrl" type="hidden"/>
+        <input asp-for="Section" type="hidden"/>
+        <input asp-for="SectionId" type="hidden"/>
+        <input asp-for="Desription" type="hidden"/>
+
+        <div class="form-group">
+            <label asp-for="Name" class="form-group"></label>
+            <input asp-for="Name" class="form-control"/>
+            <span asp-validation-for="Name"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Price" class="form-group"></label>
+            <input asp-for="Price" class="form-control"/>
+            <span asp-validation-for="Name"></span>
+        </div>
+
+
+        @inject IProductData Catalog
+        @{
+            //var brands = Catalog.GetBrands().Where(_br => _br.Id != Model.BrandId);
+            var brands = Catalog.GetBrands();
+            //var selectBrands = new SelectList(brands);
+        }
+
+        <div class="form-group">
+            <label asp-for="Brand" class="form-group"></label>
+
+           @*<select asp-for="BrandId" asp-items="selectBrands"></select>*@
+
+            <select class="form-control" asp-for="BrandId">
+                @foreach (var brand in brands)
+                {
+                    @if (brand.Id == Model.BrandId)
+                    {
+                        <option selected value="@brand.Id">@brand.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@brand.Id">@brand.Name</option>
+                    }
+                }
+            </select>
+
+           <span asp-validation-for="Brand"></span>
+        </div>
+
+        <button class="btn-default" type="submit">Сохранить</button>
+    </form>
+
+
+</div>

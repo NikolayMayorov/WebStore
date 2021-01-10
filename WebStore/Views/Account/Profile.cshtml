@@ -1,0 +1,44 @@
+﻿@model IEnumerable<WebStore.DomainCore.Entities.Orders.Order>
+
+
+<div class="container">
+    <h2>Список заказов</h2>
+    
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">Дата</th>
+            <th scope="col">Сумма</th>
+            <th scope="col">Статус</th>
+            <th scope="col">Подробнее</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @foreach (var order in Model)
+                {
+                    <td>@order.Date</td>
+                    <td>
+                        @{
+                            decimal total = 0;
+                        }
+                        @foreach (var orderItem in order.Items)
+                        {
+                            total += orderItem.Quantity * orderItem.Price;
+                        }
+                        @total.ToString("C")
+                    </td>
+                    <td>
+                        @(order.Completed ? "Выполнен" : "В работе")
+                    </td>
+
+                    <td>
+                        <a href="#">Подробнее</a>
+                    </td>
+                }
+               
+            </tr>
+        </tbody>
+    </table>
+</div>
+

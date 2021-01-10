@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using WebStore.DomainCore.Entities.Identity;
+using WebStore.Infastrature.Interfaces;
 using WebStore.ViewModels.Identity;
 
 namespace WebStore.Controllers
@@ -95,6 +96,13 @@ namespace WebStore.Controllers
                 }
                 return View(registerViewModel);
             }
+        }
+
+
+        public IActionResult Profile(string userName, [FromServices] IOrderService orderService)
+        {
+
+            return View(orderService.GetOrdersByUserName(userName));
         }
         
     }

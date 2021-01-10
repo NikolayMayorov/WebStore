@@ -19,5 +19,10 @@
       "library": "prettyPhoto@3.1.6",
       "destination": "wwwroot/lib/prettyPhoto/"
     }
+    //{
+    //  "provider": "unpkg",
+    //  "library": "bootstrap@4.5.3",
+    //  "destination": "wwwroot/bootstrap/"
+    //}
   ]
 }

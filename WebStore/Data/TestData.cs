@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using WebStore.DomainCore.Entities;
 
 
@@ -76,5 +77,6 @@ namespace WebStore.Data
             new Product { Id = 11, Name = "Джинсы женские", Price = 1025, ImageUrl = "product11.jpg", Order = 10, SectionId = 19, BrandId = 3 , Desription = "Test description"},
             new Product { Id = 12, Name = "Летний костюм", Price = 1025, ImageUrl = "product12.jpg", Order = 11, SectionId = 20, BrandId = 3 , Desription = "Test description"},
         };
+
     }
 }
